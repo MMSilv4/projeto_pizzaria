@@ -90,14 +90,10 @@ cs('.pizzaInfo--size').forEach((size, sizeIndex)=>{
 //Inserindo ação no botão de Adicionar no carrinho
 c('.pizzaInfo--addButton').addEventListener('click', () =>{
     //Qual a pizza?
-    console.log("Pizza: " +modalKey);
 
     //Qual o tamanho selecionado?
     let size = parseInt(c('.pizzaInfo--size.selected').getAttribute('data-key'));
-    console.log("Tamanho: " + size);
 
-    //Quantidade de pizzas serão adicionadas?
-    console.log("Quantidade: " + modalQt);
 
     let identifier = pizzaJson[modalKey].id+'@'+size;
 
@@ -117,7 +113,24 @@ c('.pizzaInfo--addButton').addEventListener('click', () =>{
         qt:modalQt
     });
    }
+    updateCart();
     closeModal();
-    
 });
+
+function updateCart() {
+    if(cart.length > 0){
+        c('aside').classList.add('show');
+            for(let i in cart){
+
+                let pizzaItem = pizzaJson.find((item) => {
+                    return item.id == cart[i].id;
+                });
+                console.log(pizzaItem);
+            }
+
+    }else {
+        c('aside').classList.remove('show');
+
+    }
+}
 
